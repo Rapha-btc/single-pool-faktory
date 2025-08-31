@@ -189,10 +189,10 @@ describe("Bob Single Faktory Contract Tests", () => {
 
       // Check specific fields exist and are correct types
       const tuple = poolInfo.result as any;
-      expect(tuple.value.data.depositor.type).toBe("some");
-      expect(tuple.value.data["initial-token"].value).toBe(1000000n);
-      expect(tuple.value.data["token-used"].value).toBe(0n);
-      expect(tuple.value.data["total-lp-tokens"].value).toBe(0n);
+      expect(tuple.value.depositor.type).toBe("some");
+      expect(tuple.value["initial-token"].value).toBe(1000000n);
+      expect(tuple.value["token-used"].value).toBe(0n);
+      expect(tuple.value["total-lp-tokens"].value).toBe(0n);
     });
 
     it("should prevent double initialization", () => {
@@ -283,10 +283,8 @@ describe("Bob Single Faktory Contract Tests", () => {
       );
 
       const tuple = poolInfo.result as any;
-      expect(Number(tuple.value.data["total-lp-tokens"].value)).toBeGreaterThan(
-        0
-      );
-      expect(Number(tuple.value.data["token-used"].value)).toBeGreaterThan(0);
+      expect(Number(tuple.value["total-lp-tokens"].value)).toBeGreaterThan(0);
+      expect(Number(tuple.value["token-used"].value)).toBeGreaterThan(0);
     });
   });
 
@@ -640,9 +638,9 @@ describe("Bob Single Faktory Contract Tests", () => {
       );
 
       const tuple = poolInfo.result as any;
-      const initialToken = Number(tuple.value.data["initial-token"].value);
-      const tokenUsed = Number(tuple.value.data["token-used"].value);
-      const tokenAvailable = Number(tuple.value.data["token-available"].value);
+      const initialToken = Number(tuple.value["initial-token"].value);
+      const tokenUsed = Number(tuple.value["token-used"].value);
+      const tokenAvailable = Number(tuple.value["token-available"].value);
 
       expect(tokenUsed + tokenAvailable).toBe(initialToken);
     });
@@ -681,7 +679,7 @@ describe("Bob Single Faktory Contract Tests", () => {
       );
 
       const tuple = poolInfo.result as any;
-      const totalLPTokens = Number(tuple.value.data["total-lp-tokens"].value);
+      const totalLPTokens = Number(tuple.value["total-lp-tokens"].value);
       const user2LP = Number((user2Tokens.result as any).value);
       const user3LP = Number((user3Tokens.result as any).value);
 
