@@ -170,28 +170,28 @@ Before mainnet deployment, extensive STXer simulations will be performed to vali
 - **Integration testing**: Validation with live sBTC and BOB token contracts
 - **Performance under load**: Multi-user scenarios with realistic transaction volumes
 - **Economic model validation**: Revenue split calculations with actual market conditions
-- **Security audit simulation**: Adversarial testing patterns and edge case exploitation attempts
 
 ### Mainnet Readiness Criteria
 
 The contract will be considered mainnet-ready after:
 
 - [ ] STXer simulation test suite passes (100% success rate)
-- [ ] External security audit completion
 - [ ] Economic model validation with real market data
 - [ ] Gas optimization verification
 - [ ] Final code review and documentation update
+
+**Note:** Faktory dev will provide the final approval for mainnet deployment once STXer tests are successfully completed.
 
 ## Running Tests
 
 ```bash
 # Run all tests
-clarinet test
+npm run test
 
 # Run specific test suites
-clarinet test --filter "Deposit Functionality"
-clarinet test --filter "Time-Based Access Control"
-clarinet test --filter "Multi-User Scenarios"
+npm run test -- --filter "Deposit Functionality"
+npm run test -- --filter "Time-Based Access Control"
+npm run test -- --filter "Multi-User Scenarios"
 ```
 
 ## Contract Dependencies
