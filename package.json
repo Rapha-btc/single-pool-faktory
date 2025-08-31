@@ -7,12 +7,15 @@
   "scripts": {
     "test": "vitest run",
     "test:report": "vitest run -- --coverage --costs",
-    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "generate:signature": "npx tsx src/signature.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@hirosystems/clarinet-sdk": "3.3.0",
+    "@stacks/clarunit": "0.1.0",
+    "@stacks/stacking": "^7.1.0",
     "@stacks/transactions": "^7.1.0",
     "chokidar-cli": "^3.0.0",
     "typescript": "^5.8.3",
