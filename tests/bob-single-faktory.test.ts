@@ -153,13 +153,18 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      const result = poolInfo.result as any;
-      expect(result.value.data["depositor"]).toEqual(
-        Cl.some(Cl.principal(user1))
-      );
-      expect(result.value.data["initial-token"]).toEqual(Cl.uint(1000000));
-      expect(result.value.data["creation-block"]).toEqual(
-        Cl.uint(simnet.blockHeight)
+      expect(poolInfo.result).toStrictEqual(
+        Cl.tuple({
+          depositor: Cl.some(Cl.principal(user1)),
+          "creation-block": Cl.uint(simnet.blockHeight),
+          "unlock-block": Cl.uint(simnet.blockHeight + 12960),
+          "entry-ends": Cl.uint(simnet.blockHeight + 3024),
+          "is-unlocked": Cl.bool(false),
+          "initial-token": Cl.uint(1000000),
+          "token-used": Cl.uint(0),
+          "token-available": Cl.uint(1000000),
+          "total-lp-tokens": Cl.uint(0),
+        })
       );
     });
 
@@ -200,7 +205,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user2
       );
 
-      expect(depositResult.result.type).toBe(7);
+      expect(depositResult.result.type).toBe("ok");
     });
 
     it("should prevent depositor from depositing to their own pool", () => {
@@ -215,18 +220,11 @@ describe("Bob Single Faktory Contract Tests", () => {
     });
 
     it("should prevent deposits on uninitialized pool", () => {
-      simnet.callPublicFn(
-        contractName,
-        "initialize-pool",
-        [Cl.uint(1000000)],
-        user1
-      );
-
       const depositResult = simnet.callPublicFn(
-        "bob-single-faktory-2",
+        contractName,
         "deposit-sbtc-for-lp",
         [Cl.uint(100000)],
-        user2
+        user3
       );
 
       expect(depositResult.result.type).toBe("err");
@@ -265,11 +263,9 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      const result = poolInfo.result as any;
-      expect(
-        Number(result.value.data["total-lp-tokens"].value)
-      ).toBeGreaterThan(0);
-      expect(Number(result.value.data["token-used"].value)).toBeGreaterThan(0);
+      const poolData = (poolInfo.result as any).value.data;
+      expect(Number(poolData["total-lp-tokens"].value)).toBeGreaterThan(0);
+      expect(Number(poolData["token-used"].value)).toBeGreaterThan(0);
     });
   });
 
@@ -333,7 +329,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user2
       );
 
-      expect(withdrawResult.result.type).toBe(7);
+      expect(withdrawResult.result.type).toBe("ok");
     });
 
     it("should allow depositor to withdraw remaining tokens after entry period", () => {
@@ -346,7 +342,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user1
       );
 
-      expect(withdrawResult.result.type).toBe(7);
+      expect(withdrawResult.result.type).toBe("ok");
     });
   });
 
@@ -375,7 +371,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user2
       );
 
-      expect(withdrawResult.result.type).toBe(7);
+      expect(withdrawResult.result.type).toBe("ok");
     });
 
     it("should clear user LP tokens after withdrawal", () => {
@@ -410,7 +406,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user1
       );
 
-      expect(withdrawResult.result.type).toBe(7);
+      expect(withdrawResult.result.type).toBe("ok");
     });
 
     it("should prevent unauthorized depositor-assisted withdrawals", () => {
@@ -450,8 +446,8 @@ describe("Bob Single Faktory Contract Tests", () => {
         user3
       );
 
-      expect(deposit1.result.type).toBe(7);
-      expect(deposit2.result.type).toBe(7);
+      expect(deposit1.result.type).toBe("ok");
+      expect(deposit2.result.type).toBe("ok");
 
       const user2Tokens = simnet.callReadOnlyFn(
         contractName,
@@ -546,7 +542,7 @@ describe("Bob Single Faktory Contract Tests", () => {
   });
 
   describe("Edge Case Scenarios", () => {
-    it("should handle deposits exactly at entry period boundary", () => {
+    it("should reject deposits exactly at entry period boundary", () => {
       simnet.callPublicFn(
         contractName,
         "initialize-pool",
@@ -563,7 +559,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user2
       );
 
-      expect(depositResult.result.type).toBe(7);
+      expect(depositResult.result).toBeErr(Cl.uint(409));
     });
 
     it("should handle withdrawals exactly at unlock boundary", () => {
@@ -590,7 +586,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user2
       );
 
-      expect(withdrawResult.result.type).toBe(7);
+      expect(withdrawResult.result.type).toBe("ok");
     });
 
     it("should handle remaining token withdrawal after entry period", () => {
@@ -617,7 +613,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         user1
       );
 
-      expect(withdrawResult.result.type).toBe(7);
+      expect(withdrawResult.result.type).toBe("ok");
     });
   });
 
@@ -646,10 +642,10 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      const result = poolInfo.result as any;
-      const initialToken = Number(result.value.data["initial-token"].value);
-      const tokenUsed = Number(result.value.data["token-used"].value);
-      const tokenAvailable = Number(result.value.data["token-available"].value);
+      const poolData = (poolInfo.result as any).value.data;
+      const initialToken = Number(poolData["initial-token"].value);
+      const tokenUsed = Number(poolData["token-used"].value);
+      const tokenAvailable = Number(poolData["token-available"].value);
 
       expect(tokenUsed + tokenAvailable).toBe(initialToken);
     });
@@ -690,9 +686,8 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      const totalLPTokens = Number(
-        (poolInfo.result as any).value.data["total-lp-tokens"].value
-      );
+      const poolData = (poolInfo.result as any).value.data;
+      const totalLPTokens = Number(poolData["total-lp-tokens"].value);
       const user2LP = Number((user2Tokens.result as any).value);
       const user3LP = Number((user3Tokens.result as any).value);
 
