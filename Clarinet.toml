@@ -20,6 +20,21 @@ path = 'contracts/built-on-bitcoin-stxcity.clar'
 clarity_version = 3
 epoch = '3.1'
 
+[contracts.flat-earth-stxcity]
+path = 'contracts/flat-earth-stxcity.clar'
+clarity_version = 3
+epoch = '3.1'
+
+[contracts.flat-single-faktory]
+path = 'contracts/flat-single-faktory.clar'
+clarity_version = 3
+epoch = '3.1'
+
+[contracts.flatearth-faktory-pool]
+path = 'contracts/flatearth-faktory-pool.clar'
+clarity_version = 3
+epoch = '3.1'
+
 [contracts.sbtc-token]
 path = 'contracts/sbtc-token.clar'
 clarity_version = 3
@@ -29,7 +44,6 @@ epoch = '3.1'
 path = 'contracts/sip-010-trait-ft-standard.clar'
 clarity_version = 3
 epoch = '3.1'
-
 [repl.analysis]
 passes = ['check_checker']
 

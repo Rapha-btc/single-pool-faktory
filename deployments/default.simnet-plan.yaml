@@ -84,4 +84,19 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/bob-single-faktory.clar
             clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: flat-earth-stxcity
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/flat-earth-stxcity.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: flatearth-faktory-pool
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/flatearth-faktory-pool.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: flat-single-faktory
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/flat-single-faktory.clar
+            clarity-version: 3
       epoch: "3.1"

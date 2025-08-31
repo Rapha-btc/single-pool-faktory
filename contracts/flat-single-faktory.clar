@@ -1,3 +1,4 @@
+;; 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.flat-earth-stxcity
 (define-constant CONTRACT (as-contract tx-sender))
 
 (define-constant ERR_UNAUTHORIZED (err u403))
@@ -25,7 +26,7 @@
     (asserts! (is-none (var-get depositor)) ERR_ALREADY_INITIALIZED)
     (asserts! (> token-amount u0) ERR_INSUFFICIENT_AMOUNT)
     
-    (try! (contract-call? 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity 
+    (try! (contract-call? .flat-earth-stxcity 
            transfer token-amount tx-sender CONTRACT none))
     
     (var-set depositor (some tx-sender))
@@ -36,7 +37,7 @@
       type: "pool-initialized",
       depositor: tx-sender,
       token-amount: token-amount,
-      ft: 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity,
+      ft: .flat-earth-stxcity,
       unlock-block: (+ burn-block-height LOCK_PERIOD)
     })
     
@@ -49,16 +50,16 @@
           (amounts (unwrap! (calculate-amounts-for-lp lp-amount) ERR_CALC_AMOUNTS))
           (sbtc-needed (get sbtc-needed amounts))
           (token-needed (get token-needed amounts))
-          (deposit (try! (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+          (deposit (try! (contract-call? .sbtc-token 
                                 transfer sbtc-needed tx-sender CONTRACT none)))
-          (lp-result (try! (as-contract (contract-call? 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool 
+          (lp-result (try! (as-contract (contract-call? .flatearth-faktory-pool 
                                 add-liquidity lp-amount))))
           (lp-tokens-received (get dk lp-result))
           (current-lp (default-to u0 (map-get? user-lp-tokens tx-sender))))
 
     (asserts! (is-some (var-get depositor)) ERR_NOT_INITIALIZED)
     (asserts! (< burn-block-height (+ (var-get creation-block) ENTRY_PERIOD)) ERR_TOO_LATE)
-    (asserts! (not (is-eq (some tx-sender) (var-get depositor))) ERR_UNAUTHORIZED) 
+    (asserts! (not (is-eq (some tx-sender) (var-get depositor))) ERR_UNAUTHORIZED) ;; else err u2 in withdrawing
 
       (map-set user-lp-tokens tx-sender (+ current-lp lp-tokens-received))
       (var-set total-lp-tokens (+ (var-get total-lp-tokens) lp-tokens-received))
@@ -71,7 +72,7 @@
         token-used: token-needed,
         lp-tokens: lp-tokens-received,
         unlock-block: (+ (var-get creation-block) LOCK_PERIOD),
-        ft: 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity
+        ft: .flat-earth-stxcity
       })
       
       (ok lp-tokens-received)
@@ -85,7 +86,7 @@
     (asserts! (>= burn-block-height unlock-block) ERR_STILL_LOCKED)
     (asserts! (> user-lp u0) ERR_NO_DEPOSIT)
     
-    (let ((remove-result (try! (as-contract (contract-call? 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool 
+    (let ((remove-result (try! (as-contract (contract-call? .flatearth-faktory-pool 
                                                 remove-liquidity user-lp))))
           (sbtc-received (get dx remove-result))
           (token-received (get dy remove-result))
@@ -96,14 +97,14 @@
           (user tx-sender)
           )
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer user-sbtc-share CONTRACT user none)))
-        (try! (as-contract (contract-call? 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity 
+        (try! (as-contract (contract-call? .flat-earth-stxcity 
                transfer user-token-share CONTRACT user none)))
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer depositor-sbtc-share CONTRACT depositor-principal none)))
-        (try! (as-contract (contract-call? 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity 
+        (try! (as-contract (contract-call? .flat-earth-stxcity 
                transfer depositor-token-share CONTRACT depositor-principal none)))
         
         (map-delete user-lp-tokens tx-sender)
@@ -117,7 +118,7 @@
           user-token: user-token-share,
           depositor-sbtc: depositor-sbtc-share,
           depositor-token: depositor-token-share,
-          ft: 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity
+          ft: .flat-earth-stxcity
         })
         
         (ok user-lp)
@@ -133,7 +134,7 @@
     (asserts! (>= burn-block-height unlock-block) ERR_STILL_LOCKED)
     (asserts! (> user-lp u0) ERR_NO_DEPOSIT)
     
-    (let ((remove-result (try! (as-contract (contract-call? 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool 
+    (let ((remove-result (try! (as-contract (contract-call? .flatearth-faktory-pool 
                                                 remove-liquidity user-lp))))
           (sbtc-received (get dx remove-result))
           (token-received (get dy remove-result))
@@ -142,14 +143,14 @@
           (user-token-share (/ (* token-received u60) u100))
           (depositor-token-share (- token-received user-token-share)))
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer user-sbtc-share CONTRACT user none)))
-        (try! (as-contract (contract-call? 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity 
+        (try! (as-contract (contract-call? .flat-earth-stxcity 
                transfer user-token-share CONTRACT user none)))
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer depositor-sbtc-share CONTRACT depositor-principal none)))
-        (try! (as-contract (contract-call? 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity 
+        (try! (as-contract (contract-call? .flat-earth-stxcity 
                transfer depositor-token-share CONTRACT depositor-principal none)))
         
         (map-delete user-lp-tokens user)
@@ -164,7 +165,7 @@
           user-token: user-token-share,
           depositor-sbtc: depositor-sbtc-share,
           depositor-token: depositor-token-share,
-          ft: 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity
+          ft: .flat-earth-stxcity
         })
         
         (ok user-lp)
@@ -181,13 +182,13 @@
     (let ((remaining-token (- (var-get initial-token-amount) (var-get token-used-for-lp))))
       
       (and (> remaining-token u0)
-           (try! (as-contract (contract-call? 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity 
+           (try! (as-contract (contract-call? .flat-earth-stxcity 
                   transfer remaining-token CONTRACT depositor-principal none))))
       
       (print {
         type: "token-withdrawal",
         amount: remaining-token,
-        ft: 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity
+        ft: .flat-earth-stxcity
       })
       
       (ok remaining-token)
@@ -204,7 +205,7 @@
     is-unlocked: (>= burn-block-height (+ (var-get creation-block) LOCK_PERIOD)),
     initial-token: (var-get initial-token-amount),
     token-used: (var-get token-used-for-lp),
-    token-available-during-entry: (- (var-get initial-token-amount) (var-get token-used-for-lp)),
+    token-available: (- (var-get initial-token-amount) (var-get token-used-for-lp)),
     total-lp-tokens: (var-get total-lp-tokens)
   }
 )
@@ -214,8 +215,8 @@
 )
 
 (define-read-only (get-quote-for-lp (lp-amount uint))
-  (contract-call? 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool 
-        quote lp-amount (some 0x02))) 
+  (contract-call? .flatearth-faktory-pool 
+        quote lp-amount (some 0x02))) ;; 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22
 
 (define-read-only (calculate-amounts-for-lp (lp-amount uint))
   (begin 
@@ -229,8 +230,8 @@
 
 (define-read-only (get-config) 
     {
-        ft: 'SP2VG7S0R4Z8PYNYCAQ04HCBX1MH75VT11VXCWQ6G.built-on-bitcoin-stxcity,
-        pool: 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool,
-        denomination: 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token,
+        ft: .flat-earth-stxcity,
+        pool: .flatearth-faktory-pool,
+        denomination: .sbtc-token,
     }
 )
