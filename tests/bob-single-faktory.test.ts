@@ -40,12 +40,8 @@ describe("Bob Single Faktory Contract Tests", () => {
       expect(result.result).toStrictEqual(
         Cl.tuple({
           ft: Cl.contractPrincipal(simnet.deployer, "built-on-bitcoin-stxcity"),
-          pool: Cl.principal(
-            "SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool"
-          ),
-          denomination: Cl.principal(
-            "SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token"
-          ),
+          pool: Cl.contractPrincipal(simnet.deployer, "bob-faktory-pool"),
+          denomination: Cl.contractPrincipal(simnet.deployer, "sbtc-token"),
         })
       );
     });
@@ -97,7 +93,7 @@ describe("Bob Single Faktory Contract Tests", () => {
       );
 
       expect(result1.result).toStrictEqual(Cl.uint(0));
-      expect(result2.result).toBe(Cl.uint(0));
+      expect(result2.result).toStrictEqual(Cl.uint(0));
     });
   });
 
@@ -259,7 +255,7 @@ describe("Bob Single Faktory Contract Tests", () => {
 
       // Both should work and return the same result (zero)
       expect(result1.result).toStrictEqual(Cl.uint(0));
-      expect(result2.result).toBe(Cl.uint(0));
+      expect(result2.result).toStrictEqual(Cl.uint(0));
     });
   });
 
@@ -308,15 +304,20 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      const result = poolInfo.result as any;
-
-      // Initial state should be consistent
-      expect(result.value.data["initial-token"]).toEqual(Cl.uint(0));
-      expect(result.value.data["token-used"]).toEqual(Cl.uint(0));
-      expect(result.value.data["total-lp-tokens"]).toEqual(Cl.uint(0));
-
-      // Available should equal initial minus used
-      expect(result.value.data["token-available"]).toEqual(Cl.uint(0));
+      // The result is a Cl.tuple, so we need to access it correctly
+      expect(poolInfo.result).toStrictEqual(
+        Cl.tuple({
+          depositor: Cl.none(),
+          "creation-block": Cl.uint(0),
+          "unlock-block": Cl.uint(12960),
+          "entry-ends": Cl.uint(3024),
+          "is-unlocked": Cl.bool(false),
+          "initial-token": Cl.uint(0),
+          "token-used": Cl.uint(0),
+          "token-available": Cl.uint(0),
+          "total-lp-tokens": Cl.uint(0),
+        })
+      );
     });
   });
 
@@ -329,7 +330,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      expect(result.result).toBe(Cl.uint(0));
+      expect(result.result).toStrictEqual(Cl.uint(0));
     });
 
     it("should accept valid uint parameters", () => {
