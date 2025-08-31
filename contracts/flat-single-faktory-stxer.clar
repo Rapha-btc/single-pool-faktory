@@ -204,7 +204,7 @@
     is-unlocked: (>= burn-block-height (+ (var-get creation-block) LOCK_PERIOD)),
     initial-token: (var-get initial-token-amount),
     token-used: (var-get token-used-for-lp),
-    token-available: (- (var-get initial-token-amount) (var-get token-used-for-lp)),
+    token-available-during-entry: (- (var-get initial-token-amount) (var-get token-used-for-lp)),
     total-lp-tokens: (var-get total-lp-tokens)
   }
 )
@@ -215,7 +215,7 @@
 
 (define-read-only (get-quote-for-lp (lp-amount uint))
   (contract-call? 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.flatearth-faktory-pool 
-        quote lp-amount (some 0x02))) ;; 'SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22
+        quote lp-amount (some 0x02)))
 
 (define-read-only (calculate-amounts-for-lp (lp-amount uint))
   (begin 
