@@ -73,7 +73,7 @@ SimulationBuilder.new()
   .addContractCall({
     contract_id: `${DEPLOYER}.bob-single-faktory-stxer`,
     function_name: "deposit-sbtc-for-lp",
-    function_args: [uintCV(100000000)], // LP amount parameter
+    function_args: [uintCV(1000000)], // LP amount parameter
   })
 
   // sBTC user 2 deposits for LP
@@ -81,7 +81,7 @@ SimulationBuilder.new()
   .addContractCall({
     contract_id: `${DEPLOYER}.bob-single-faktory-stxer`,
     function_name: "deposit-sbtc-for-lp",
-    function_args: [uintCV(200000000)], // LP amount parameter
+    function_args: [uintCV(2000000)], // LP amount parameter
   })
 
   // sBTC user 3 deposits for LP - this user will be withdrawn by depositor
@@ -89,7 +89,7 @@ SimulationBuilder.new()
   .addContractCall({
     contract_id: `${DEPLOYER}.bob-single-faktory-stxer`,
     function_name: "deposit-sbtc-for-lp",
-    function_args: [uintCV(150000000)], // LP amount parameter
+    function_args: [uintCV(1500000)], // LP amount parameter
   })
 
   // Check user LP tokens before any withdrawals
@@ -200,7 +200,7 @@ SimulationBuilder.new()
   .addContractCall({
     contract_id: `${DEPLOYER}.bob-single-faktory-stxer`,
     function_name: "deposit-sbtc-for-lp",
-    function_args: [uintCV(25000000)], // Should fail with ERR_UNAUTHORIZED
+    function_args: [uintCV(5000)], // Should fail with ERR_UNAUTHORIZED
   })
 
   // TEST: Try double initialization (should fail)
@@ -216,3 +216,9 @@ SimulationBuilder.new()
 
   .run()
   .catch(console.error);
+
+// all green: https://stxer.xyz/simulations/mainnet/a299134ecc28386ac52b4635ae83e598
+// please enable advancing chain tip, i'm setting lock period to u0 to test: https://github.com/stxer/stxer-sdk/issues/1
+// with lock period u0 https://stxer.xyz/simulations/mainnet/53e9cdc864ad0c4f4f18ab75d071f026
+// with entry period u0
+// all green: https://stxer.xyz/simulations/mainnet/61bd37adcd6508482a00b638df10138d

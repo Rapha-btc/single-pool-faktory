@@ -204,7 +204,7 @@
     is-unlocked: (>= burn-block-height (+ (var-get creation-block) LOCK_PERIOD)),
     initial-token: (var-get initial-token-amount),
     token-used: (var-get token-used-for-lp),
-    token-available: (- (var-get initial-token-amount) (var-get token-used-for-lp)),
+    token-available-during-entry: (- (var-get initial-token-amount) (var-get token-used-for-lp)),
     total-lp-tokens: (var-get total-lp-tokens)
   }
 )
