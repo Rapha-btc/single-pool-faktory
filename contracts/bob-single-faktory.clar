@@ -50,7 +50,7 @@
           (amounts (unwrap! (calculate-amounts-for-lp lp-amount) ERR_CALC_AMOUNTS))
           (sbtc-needed (get sbtc-needed amounts))
           (token-needed (get token-needed amounts))
-          (deposit (try! (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+          (deposit (try! (contract-call? .sbtc-token 
                                 transfer sbtc-needed tx-sender CONTRACT none)))
           (lp-result (try! (as-contract (contract-call? .bob-faktory-pool 
                                 add-liquidity lp-amount))))
@@ -97,12 +97,12 @@
           (user tx-sender)
           )
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer user-sbtc-share CONTRACT user none)))
         (try! (as-contract (contract-call? .built-on-bitcoin-stxcity 
                transfer user-token-share CONTRACT user none)))
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer depositor-sbtc-share CONTRACT depositor-principal none)))
         (try! (as-contract (contract-call? .built-on-bitcoin-stxcity 
                transfer depositor-token-share CONTRACT depositor-principal none)))
@@ -143,12 +143,12 @@
           (user-token-share (/ (* token-received u60) u100))
           (depositor-token-share (- token-received user-token-share)))
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer user-sbtc-share CONTRACT user none)))
         (try! (as-contract (contract-call? .built-on-bitcoin-stxcity 
                transfer user-token-share CONTRACT user none)))
         
-        (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token 
+        (try! (as-contract (contract-call? .sbtc-token 
                transfer depositor-sbtc-share CONTRACT depositor-principal none)))
         (try! (as-contract (contract-call? .built-on-bitcoin-stxcity 
                transfer depositor-token-share CONTRACT depositor-principal none)))
@@ -232,6 +232,6 @@
     {
         ft: .built-on-bitcoin-stxcity,
         pool: .bob-faktory-pool,
-        denomination: 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token,
+        denomination: .sbtc-token,
     }
 )

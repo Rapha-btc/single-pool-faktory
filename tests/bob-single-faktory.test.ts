@@ -12,6 +12,20 @@ const contractName = "bob-single-faktory";
 describe("Bob Single Faktory Contract Tests", () => {
   beforeEach(() => {
     simnet.setEpoch("3.0");
+
+    // Add these lines to mint tokens for testing:
+    simnet.callPublicFn(
+      "sbtc-token",
+      "mint",
+      [Cl.uint(10000000), Cl.principal(deployer)],
+      deployer
+    );
+    simnet.callPublicFn(
+      "built-on-bitcoin-stxcity",
+      "mint",
+      [Cl.uint(10000000), Cl.principal(deployer)],
+      deployer
+    );
   });
 
   describe("Contract Configuration & Constants", () => {
@@ -23,9 +37,9 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      expect(result.result).toBeOk(
+      expect(result.result).toStrictEqual(
         Cl.tuple({
-          ft: Cl.principal(".built-on-bitcoin-stxcity"),
+          ft: Cl.contractPrincipal(simnet.deployer, "built-on-bitcoin-stxcity"),
           pool: Cl.principal(
             "SPV9K21TBFAK4KNRJXF5DFP8N7W46G4V9RCJDC22.bob-faktory-pool"
           ),
@@ -52,7 +66,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      expect(result.result).toBeOk(
+      expect(result.result).toStrictEqual(
         Cl.tuple({
           depositor: Cl.none(),
           "creation-block": Cl.uint(0),
@@ -82,7 +96,7 @@ describe("Bob Single Faktory Contract Tests", () => {
         deployer
       );
 
-      expect(result1.result).toBe(Cl.uint(0));
+      expect(result1.result).toStrictEqual(Cl.uint(0));
       expect(result2.result).toBe(Cl.uint(0));
     });
   });
@@ -244,7 +258,7 @@ describe("Bob Single Faktory Contract Tests", () => {
       );
 
       // Both should work and return the same result (zero)
-      expect(result1.result).toBe(Cl.uint(0));
+      expect(result1.result).toStrictEqual(Cl.uint(0));
       expect(result2.result).toBe(Cl.uint(0));
     });
   });

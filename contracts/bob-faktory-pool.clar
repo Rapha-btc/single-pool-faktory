@@ -148,7 +148,7 @@
     )
     (asserts! (>= dy-d min-y-out) ERR_TOO_MUCH_SLIPPAGE)
     ;; Transfer token A to pool
-    (try! (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token
+    (try! (contract-call? .sbtc-token
       transfer amount sender CONTRACT none
     ))
     ;; Transfer token B to sender
@@ -159,7 +159,7 @@
     (print {
       type: "buy",
       sender: sender,
-      token-in: 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token,
+      token-in: .sbtc-token,
       amount-in: amount,
       token-out: .built-on-bitcoin-stxcity,
       amount-out: dy-d,
@@ -184,7 +184,7 @@
       transfer amount sender CONTRACT none
     ))
     ;; Transfer token A to sender
-    (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token
+    (try! (as-contract (contract-call? .sbtc-token
       transfer dy-d CONTRACT sender none
     )))
     (print {
@@ -192,7 +192,7 @@
       sender: sender,
       token-in: .built-on-bitcoin-stxcity,
       amount-in: amount,
-      token-out: 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token,
+      token-out: .sbtc-token,
       amount-out: dy-d,
       pool-reserves: (get-reserves-quote),
       pool-contract: CONTRACT,
@@ -210,7 +210,7 @@
       (dy-d (get dy delta))
       (dk-d (get dk delta))
     )
-    (try! (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token
+    (try! (contract-call? .sbtc-token
       transfer dx-d sender CONTRACT none
     ))
     (try! (contract-call?
@@ -221,7 +221,7 @@
     (print {
       type: "add-liquidity",
       sender: sender,
-      token-a: 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token,
+      token-a: .sbtc-token,
       token-a-amount: dx-d,
       token-b: .built-on-bitcoin-stxcity,
       token-b-amount: dy-d,
@@ -242,7 +242,7 @@
       (dk-d (get dk delta))
     )
     (try! (ft-burn? sBTC-BOB dk-d sender))
-    (try! (as-contract (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token
+    (try! (as-contract (contract-call? .sbtc-token
       transfer dx-d CONTRACT sender none
     )))
     (try! (as-contract (contract-call?
@@ -252,7 +252,7 @@
     (print {
       type: "remove-liquidity",
       sender: sender,
-      token-a: 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token,
+      token-a: .sbtc-token,
       token-a-amount: dx-d,
       token-b: .built-on-bitcoin-stxcity,
       token-b-amount: dy-d,
@@ -275,7 +275,7 @@
 
 (define-private (get-reserves)
   {
-    a: (unwrap-panic (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token
+    a: (unwrap-panic (contract-call? .sbtc-token
       get-balance CONTRACT
     )),
     b: (unwrap-panic (contract-call?
