@@ -114,6 +114,14 @@
   )
 )
 
+;; mocked mint func
+(define-public (mint (amount uint) (recipient principal))
+  (begin
+    ;; (asserts! (is-eq tx-sender (var-get contract-owner)) ERR-UNAUTHORIZED)
+    (ft-mint? BOB amount recipient)
+  )
+)
+
 ;; ---------------------------------------------------------
 ;; Mint
 ;; ---------------------------------------------------------
