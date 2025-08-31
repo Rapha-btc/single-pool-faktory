@@ -242,16 +242,6 @@ describe("Bob Single Faktory Contract Tests", () => {
       expect(depositResult.result).toBeErr(Cl.uint(403));
     });
 
-    it("should prevent deposits on uninitialized pool", () => {
-      const depositResult = simnet.callPublicFn(
-        contractName,
-        "deposit-sbtc-for-lp",
-        [Cl.uint(100000)],
-        user3
-      );
-      expect(depositResult.result.type).toBe("err");
-    });
-
     it("should track user LP tokens after deposit", () => {
       simnet.callPublicFn(
         contractName,
@@ -833,6 +823,18 @@ describe("Bob Single Faktory Contract Tests", () => {
     it("should have correct time constants reflected in calculations", () => {
       const currentBlock = simnet.blockHeight;
       expect(currentBlock + 12960).toBeGreaterThan(currentBlock + 3024);
+    });
+  });
+
+  describe("Uninitialized Pool Tests", () => {
+    it("should prevent deposits on uninitialized pool", () => {
+      const depositResult = simnet.callPublicFn(
+        contractName,
+        "deposit-sbtc-for-lp",
+        [Cl.uint(100000)],
+        user3
+      );
+      expect(depositResult.result.type).toBe("err");
     });
   });
 });
