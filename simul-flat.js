@@ -222,3 +222,4 @@ SimulationBuilder.new()
 // with entry period u0
 // all green: https://stxer.xyz/simulations/mainnet/61bd37adcd6508482a00b638df10138d
 // https://stxer.xyz/simulations/mainnet/fee6d8d114d3059025c4fbe21ae52b9c
+// https://stxer.xyz/simulations/mainnet/bc6c5d2e66edd4371b0aa3457f2c5011
