@@ -50,6 +50,16 @@ path = 'contracts/froggy-single-faktory.clar'
 clarity_version = 3
 epoch = '3.1'
 
+[contracts.pepe-faktory-pool]
+path = 'contracts/pepe-faktory-pool.clar'
+clarity_version = 3
+epoch = '3.1'
+
+[contracts.pepe-single-faktory]
+path = 'contracts/pepe-single-faktory.clar'
+clarity_version = 3
+epoch = '3.1'
+
 [contracts.sbtc-token]
 path = 'contracts/sbtc-token.clar'
 clarity_version = 3
@@ -59,6 +69,12 @@ epoch = '3.1'
 path = 'contracts/sip-010-trait-ft-standard.clar'
 clarity_version = 3
 epoch = '3.1'
+
+[contracts.tokensoft-token-v4k68639zxz]
+path = 'contracts/tokensoft-token-v4k68639zxz.clar'
+clarity_version = 3
+epoch = '3.1'
+
 [repl.analysis]
 passes = ['check_checker']
 

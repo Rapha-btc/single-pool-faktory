@@ -114,4 +114,19 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/froggy-single-faktory.clar
             clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: tokensoft-token-v4k68639zxz
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/tokensoft-token-v4k68639zxz.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: pepe-faktory-pool
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/pepe-faktory-pool.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: pepe-single-faktory
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/pepe-single-faktory.clar
+            clarity-version: 3
       epoch: "3.1"
