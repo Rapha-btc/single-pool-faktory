@@ -7,9 +7,9 @@ const user1 = accounts.get("wallet_1")!;
 const user2 = accounts.get("wallet_2")!;
 const user3 = accounts.get("wallet_3")!;
 
-const contractName = "flat-single-faktory";
+const contractName = "froggy-single-faktory";
 
-describe("Flat Single Faktory Contract Tests", () => {
+describe("Froggy Single Faktory Contract Tests", () => {
   beforeEach(() => {
     simnet.setEpoch("3.0");
 
@@ -20,7 +20,7 @@ describe("Flat Single Faktory Contract Tests", () => {
       deployer
     );
     simnet.callPublicFn(
-      "flat-earth-stxcity",
+      "frog-faktory",
       "mint",
       [Cl.uint(10000000), Cl.principal(deployer)],
       deployer
@@ -32,7 +32,7 @@ describe("Flat Single Faktory Contract Tests", () => {
       deployer
     );
     simnet.callPublicFn(
-      "flat-earth-stxcity",
+      "frog-faktory",
       "mint",
       [Cl.uint(10000000), Cl.principal(user1)],
       deployer
@@ -44,7 +44,7 @@ describe("Flat Single Faktory Contract Tests", () => {
       deployer
     );
     simnet.callPublicFn(
-      "flat-earth-stxcity",
+      "frog-faktory",
       "mint",
       [Cl.uint(10000000), Cl.principal(user2)],
       deployer
@@ -56,14 +56,14 @@ describe("Flat Single Faktory Contract Tests", () => {
       deployer
     );
     simnet.callPublicFn(
-      "flat-earth-stxcity",
+      "frog-faktory",
       "mint",
       [Cl.uint(10000000), Cl.principal(user3)],
       deployer
     );
 
     simnet.callPublicFn(
-      "flatearth-faktory-pool",
+      "froggy-faktory-pool",
       "add-liquidity",
       [Cl.uint(1000000)],
       deployer
@@ -813,8 +813,8 @@ describe("Flat Single Faktory Contract Tests", () => {
 
       expect(result.result).toStrictEqual(
         Cl.tuple({
-          ft: Cl.contractPrincipal(simnet.deployer, "flat-earth-stxcity"),
-          pool: Cl.contractPrincipal(simnet.deployer, "flatearth-faktory-pool"),
+          ft: Cl.contractPrincipal(simnet.deployer, "frog-faktory"),
+          pool: Cl.contractPrincipal(simnet.deployer, "froggy-faktory-pool"),
           denomination: Cl.contractPrincipal(simnet.deployer, "sbtc-token"),
         })
       );

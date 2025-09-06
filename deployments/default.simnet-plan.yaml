@@ -99,4 +99,19 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/flat-single-faktory.clar
             clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: frog-faktory
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/frog-faktory.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: froggy-faktory-pool
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/froggy-faktory-pool.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: froggy-single-faktory
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/froggy-single-faktory.clar
+            clarity-version: 3
       epoch: "3.1"
