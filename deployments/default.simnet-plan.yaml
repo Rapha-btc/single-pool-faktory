@@ -65,14 +65,29 @@ plan:
             path: contracts/sip-010-trait-ft-standard.clar
             clarity-version: 3
         - emulated-contract-publish:
-            contract-name: built-on-bitcoin-stxcity
+            contract-name: b-faktory
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/built-on-bitcoin-stxcity.clar
+            path: contracts/b-faktory.clar
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: sbtc-token
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/sbtc-token.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: b-faktory-pool
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/b-faktory-pool.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: b-single-faktory
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/b-single-faktory.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: built-on-bitcoin-stxcity
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/built-on-bitcoin-stxcity.clar
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: bob-faktory-pool
