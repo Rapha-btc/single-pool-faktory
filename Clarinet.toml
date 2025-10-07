@@ -5,6 +5,7 @@ authors = []
 telemetry = false
 cache_dir = './.cache'
 requirements = []
+
 [contracts.b-faktory]
 path = 'contracts/b-faktory.clar'
 clarity_version = 3
@@ -85,10 +86,26 @@ path = 'contracts/sip-010-trait-ft-standard.clar'
 clarity_version = 3
 epoch = '3.1'
 
+[contracts.skullcoin-faktory-pool]
+path = 'contracts/skullcoin-faktory-pool.clar'
+clarity_version = 3
+epoch = '3.1'
+
+[contracts.skullcoin-stxcity]
+path = 'contracts/skullcoin-stxcity.clar'
+clarity_version = 3
+epoch = '3.1'
+
+[contracts.skullcoin-single-faktory]
+path = 'contracts/skullcoin-single-faktory.clar'
+clarity_version = 3
+epoch = '3.1'
+
 [contracts.tokensoft-token-v4k68639zxz]
 path = 'contracts/tokensoft-token-v4k68639zxz.clar'
 clarity_version = 3
 epoch = '3.1'
+
 [repl.analysis]
 passes = ['check_checker']
 

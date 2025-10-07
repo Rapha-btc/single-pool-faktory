@@ -144,4 +144,19 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/pepe-single-faktory.clar
             clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: skullcoin-stxcity
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/skullcoin-stxcity.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: skullcoin-faktory-pool
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/skullcoin-faktory-pool.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: skullcoin-single-faktory
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/skullcoin-single-faktory.clar
+            clarity-version: 3
       epoch: "3.1"
